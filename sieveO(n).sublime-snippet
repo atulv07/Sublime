@@ -1,0 +1,43 @@
+<snippet>
+	<content><![CDATA[
+const long long MAX_SIZE = 1000001;
+
+// isPrime[] : isPrime[i] is true if number is prime 
+// prime[] : stores all prime number less than N
+// SPF[] that store smallest prime factor of number
+// [for ex : smallest prime factor of '8' and '16'
+// is '2' so we put SPF[8] = 2 , SPF[16] = 2 ]
+
+vector<ll>isprime(MAX_SIZE, true);
+vector<ll>prime;
+vector<ll>SPF(MAX_SIZE);
+
+// generates all prime numbers less than N in O(n)
+void manipulated_seive(ll N) {
+    // 0 and 1 are not prime
+    isprime[0] = isprime[1] = false;
+    for (ll i = 2; i < N; i++) {
+        if (isprime[i]) {
+            prime.pb(i);
+            // A prime number is its own smallest prime factor
+            SPF[i] = i;
+        }
+        // Remove all multiples of i * prime[j] which are
+        // not prime by making isPrime[i*prime[j]] = false
+        // and put smallest prime factor of i*Prime[j] as prime[j]
+        // [ for exp :let  i = 5 , j = 0 , prime[j] = 2 [ i*prime[j] = 10 ]
+        // so smallest prime factor of '10' is '2' that is prime[j] ]
+        // this loop run only one time for number which are not prime
+        for (ll j = 0; j < (ll)prime.size() && i * prime[j] < N && prime[j] <= SPF[i]; j++) {
+            isprime[i * prime[j]] = false;
+            // put smallest prime factor of i * prime[j]
+            SPF[i * prime[j]] = prime[j];
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>sieveManipulatedO(n)</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

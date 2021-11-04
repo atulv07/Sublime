@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+inline ll POW(ll base, ll power, ll modulo) {
+	base %= modulo;
+	if (base < 0) base += modulo;
+	ll x = base, cnt = power, ans = 1;
+	while(cnt) {
+		if(cnt & 1) ans = (ans * x) % modulo;
+		x = (x * x) % modulo;
+		cnt >>= 1;
+	}
+	return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>pow</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
